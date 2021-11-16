@@ -52,7 +52,7 @@ matches c constrs argDictName = do
                   Nothing -> WildP : rest done
                   Just _ -> VarP v : rest True
               pat = foldr patf (const []) ps False
-          in [Match (ConP name pat) (NormalB $ AppE (VarE argDictName) (VarE v)) []]
+          in [Match (ConP name [] pat) (NormalB $ AppE (VarE argDictName) (VarE v)) []]
     ForallC _ _ (GadtC [name] _ _) -> return $
       [Match (RecP name []) (NormalB $ ConE 'Dict) []]
     a -> error $ "deriveArgDict matches: Unmatched 'Dec': " ++ show a
